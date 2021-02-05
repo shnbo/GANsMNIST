@@ -1,0 +1,17 @@
+import numpy as np
+from keras.models import load_model
+import matplotlib.pyplot as plt
+
+latent_dim = 100
+noise = np.random.randn(25*latent_dim).reshape((25, latent_dim))
+
+for idx in range(20):
+    model = load_model('Generator model on epoch %d.h5' % ((idx+1)*500))
+
+    img = model.predict(noise)
+
+    for i in range(25):
+        plt.subplot(5, 5, i+1)
+        plt.imshow(img[i, :, :, 0], cmap='gray_r')
+    plt.savefig('generator result on epoch %d.png' % ((idx+1)*500))
+    plt.close()
