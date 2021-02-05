@@ -21,11 +21,11 @@ def buildGenerator(latent_dim):
     model.add(LeakyReLU(alpha=0.2))
     model.add(Reshape((7, 7, 256)))
 
-    model.add(Conv2DTranspose(64, kernel_size=(2,2), strides=(2,2), activation='relu',
+    model.add(Conv2DTranspose(256, kernel_size=(2,2), strides=(2,2), activation='relu',
                               kernel_initializer='he_normal', padding='same'))
     model.add(LeakyReLU(alpha=0.2))
 
-    model.add(Conv2DTranspose(128, kernel_size=(2,2), strides=(2,2), activation='relu',
+    model.add(Conv2DTranspose(256, kernel_size=(2,2), strides=(2,2), activation='relu',
                               kernel_initializer='he_normal', padding='same'))
     model.add(LeakyReLU(alpha=0.2))
 
@@ -42,7 +42,7 @@ def buildDiscriminator():
     model.add(LeakyReLU(alpha=0.2))
     model.add(Dropout(0.3))
 
-    model.add(Conv2D(64, kernel_size=(3,3), strides=(2,2), padding='same'))
+    model.add(Conv2D(128, kernel_size=(3,3), strides=(2,2), padding='same'))
     model.add(LeakyReLU(alpha=0.2))
     model.add(Dropout(0.3))
 
@@ -100,7 +100,7 @@ def train(gModel, dModel, ganModel, latent_dim, epochs, batchSize=128):
 
     # model save
         if (idx+1) % 500 == 0:
-            print("epoch : %d, d_loss = %f, gan_loss = %f" % (idx, d_loss, gan_loss))
+            print("epoch : %d, d_loss = %f, gan_loss = %f" % (idx+1, d_loss, gan_loss))
 
             n = np.random.randn(25*latent_dim).reshape((25, latent_dim))
             img = gModel.predict(n)
