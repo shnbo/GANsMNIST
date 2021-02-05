@@ -102,15 +102,7 @@ def train(gModel, dModel, ganModel, latent_dim, epochs, batchSize=128):
         if (idx+1) % 500 == 0:
             print("epoch : %d, d_loss = %f, gan_loss = %f" % (idx+1, d_loss, gan_loss))
 
-            n = np.random.randn(25*latent_dim).reshape((25, latent_dim))
-            img = gModel.predict(n)
-
-            for i in range(25):
-                plt.subplot(5, 5, i+1)
-                plt.imshow(img[i, :, :, 0], cmap='gray_r')
-            plt.savefig('generated image on epoch %d.png' % (idx+1))
-            plt.close()
-
+            gModel.save('Generator model on epoch %d.h5' % (idx+1))
             ganModel.save('GAN model on epoch %d.h5' % (idx+1))
 
 
