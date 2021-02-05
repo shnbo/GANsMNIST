@@ -108,10 +108,10 @@ def train(gModel, dModel, ganModel, latent_dim, epochs, batchSize=128):
             for i in range(25):
                 plt.subplot(5, 5, i+1)
                 plt.imshow(img[i, :, :, 0], cmap='gray_r')
-            plt.savefig('generated image on epoch %d.png' % idx)
+            plt.savefig('generated image on epoch %d.png' % (idx+1))
             plt.close()
 
-            ganModel.save('GAN model on epoch %d' % idx)
+            ganModel.save('GAN model on epoch %d.h5' % (idx+1))
 
 
 latent_dim = 100
